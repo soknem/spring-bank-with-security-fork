@@ -62,7 +62,7 @@ public class AuthRestController {
                               "monthlyIncomeRange": 0,
                               "studentCardId": "string",
                               "roles": [
-                                "ADMIN","STUFF"
+                                "ADMIN"
                               ]
                             }
                                                         
