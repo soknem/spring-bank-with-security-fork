@@ -1,0 +1,35 @@
+server:
+  port: 8888
+# our own configuration for the file storage
+file:
+  storage-dir: "filestorage/images/"
+  client-dir: "/images/**"
+spring:
+  servlet: # this is for file upload
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+
+  datasource:
+    username: postgres
+    password: postgres@2023
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5434/mobile_banking_db2
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update # or update
+    generate-ddl: true
+springdoc:
+  swagger-ui:
+    path: /
+
+# This is for the access token
+ACCESS_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/access-token-private.key
+ACCESS_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/access-token-public.key
+# This is for the refresh token
+REFRESH_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/refresh-token-private.key
+REFRESH_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/refresh-token-public.key
+
+
