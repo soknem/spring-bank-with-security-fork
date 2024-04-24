@@ -10,6 +10,7 @@ import co.istad.mobilebankingcstad.features.user.dto.UserUpdateRequest;
 import co.istad.mobilebankingcstad.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
         newUser.setBlocked(false);
         newUser.setDeleted(false);
         newUser.setRoles(roles);
+        newUser.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword()));
         userRepository.save(newUser);
         return userMapper.toUserResponse(newUser);
     }

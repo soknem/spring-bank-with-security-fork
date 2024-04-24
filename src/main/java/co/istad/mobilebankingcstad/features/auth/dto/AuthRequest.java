@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Builder
-public record AuthResponse(
-        String userId,
-         String accessToken,
-        String refreshToken
-        ) {
-
+public record AuthRequest(
+        String email,
+        String password) {
 }
