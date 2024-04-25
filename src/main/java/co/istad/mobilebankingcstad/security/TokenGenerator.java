@@ -35,7 +35,7 @@ public class TokenGenerator {
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuedAt(now)
-                .expiresAt(now.plus(5, ChronoUnit.MINUTES))
+                .expiresAt(now.plus(10, ChronoUnit.SECONDS))
                 .subject(userDetails.getUsername())
                 .issuer("istad.co.mobilebanking")
                 .claim("scope", "read write")
@@ -57,7 +57,7 @@ public class TokenGenerator {
                 .claim("scope", "read write")
                 .notBefore(now)
                 .build();
-        return null;
+        return jwtRefreshTokenEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
     public AuthResponse generateAccessToken(Authentication authentication){
         if (!(authentication.getPrincipal() instanceof CustomUserDetails customUserDetails)){

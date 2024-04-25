@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -69,6 +70,9 @@ public class SecurityConfiguration {
                                         .permitAll()
                                         .requestMatchers("/api/v1/auth/**")
                                         .permitAll()
+                                        .requestMatchers(HttpMethod.PATCH,"api/v1/users/**")
+                                        .hasRole("ADMIN").requestMatchers(HttpMethod.DELETE,"api/v1/users/**")
+                                        .hasRole("ADMIN")
                                         // since user will need to upload the picture in order to register
                                         .requestMatchers(
                                                 "api/v1/files/**",
