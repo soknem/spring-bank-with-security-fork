@@ -4,8 +4,11 @@ import co.istad.mobilebankingcstad.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,7 +21,15 @@ public class CustomUserDetails implements UserDetails {
     // make the proper format for the authorities
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return  user.getRoles();
+        List<GrantedAuthority> authorities=new ArrayList<>();
+        user.getRoles().forEach(role -> {
+            authorities.add(role::getAuthority);
+            role.getAuthorities().forEach(authority -> {
+                authorities.add(authority::getName);
+            });
+        });
+
+        return authorities;
     }
 
     @Override
@@ -30,7 +41,6 @@ public class CustomUserDetails implements UserDetails {
     public String getUsername() {
         return user.getEmail();
     }
-
 
 
     // will add it tmr!
